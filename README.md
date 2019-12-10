@@ -1,6 +1,6 @@
 # polylib
 
 polylib is a matlab lib for gPC 
-code by Dongbin Xiu
+code by Prof. Dongbin Xiu
 
 python version is underconstruction...
