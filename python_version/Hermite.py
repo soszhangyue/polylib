@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from gPCBasic import *
+from .gPCBasic import *
 from scipy.special import gamma
 
 
