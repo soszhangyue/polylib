@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from .gPCBasic import *
+from gPCBasic import *
 from scipy.special import gamma
 
 
@@ -119,9 +119,51 @@ def HermiteZeros_t(degree, t):
     z = np.roots(HermiteCoef_t(degree, t))
     return z
 
+def HermiteZeros_direct(degree):
+    """
+    same as HermiteZeros
+    :param degree: degree
+    :return: zeros as array
+    """
+    return HermiteZeros(degree)
+
+def HermiteZeros_iter(degree):
+    """
+    recommend use HermiteZeros.
+    :param degree:
+    :return:
+    """
+    maxit = 50
+    EPS = 1.0e-14
+    dth = np.pi / degree
+
+    rlast = 0
+
+    if degree <= 0:
+        return
+    else:
+        z = np.zeros((degree, 1))
+
+    for k in range(1, degree + 1, 1):
+        r = -np.cos((2 * (k - 1) + 1) * dth)
+        if k != 1:
+            r = (r + rlast) / 2
+        for j in range(1, maxit + 1, 1):
+            poly = HermiteF(r, degree)
+            pder = HermiteD(r, degree)
+
+            delr = - poly / (pder - sum(1. / (r - z[1:k-1])) * poly) # this need check later
+
+            r = r + delr
+
+            if np.abs(delr) < EPS:
+                break
+
+            if j == maxit:
+                print('Maximum number of iteration reached in function: HermiteZeros\n')
+        z[k] = r
+        rlast = r
+    return z
 
 if __name__ == "__main__":
-    x = lin_as_mat(1, 1.3, 0.1)
-    order = 3
-    exp = HermiteF_nd(x, 4, order)
-    print(exp)
+    print(HermiteCoef(3))

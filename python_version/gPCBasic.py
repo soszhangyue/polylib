@@ -3,6 +3,11 @@ import math
 
 
 def binom_coef(n, k):
+    """
+    :param n: order
+    :param k: k
+    :return: binomial coefficient
+    """
     result = 1
     for i in range(n - k + 1, n + 1):
         result *= i
@@ -100,5 +105,5 @@ if __name__ == "__main__":
     p = lin_as_mat(1, 10, 1)
     p1 = index_p1(p, 3)
     chaos = chaos_sequence(2, 2)
-    print(chaos, chaos.shape)
+    print(chaos)
     # print(p,p.shape)
